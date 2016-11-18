@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banlinea.Framework.DatabaseTools.MetaModeler", "Banlinea.Framework.DatabaseTools.MetaModeler\Banlinea.Framework.DatabaseTools.MetaModeler.csproj", "{C045CFE9-9428-4F8D-8225-2F8FD8A744D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banlinea.Framework.DatabaseTools.ConsoleTest", "Banlinea.Framework.DatabaseTools.ConsoleTest\Banlinea.Framework.DatabaseTools.ConsoleTest.csproj", "{99EA93A8-C5BB-400D-99FD-CE89934B4C41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C045CFE9-9428-4F8D-8225-2F8FD8A744D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C045CFE9-9428-4F8D-8225-2F8FD8A744D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C045CFE9-9428-4F8D-8225-2F8FD8A744D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C045CFE9-9428-4F8D-8225-2F8FD8A744D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EA93A8-C5BB-400D-99FD-CE89934B4C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EA93A8-C5BB-400D-99FD-CE89934B4C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EA93A8-C5BB-400D-99FD-CE89934B4C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EA93A8-C5BB-400D-99FD-CE89934B4C41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
