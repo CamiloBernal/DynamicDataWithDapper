@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banlinea.Framework.Database
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banlinea.Framework.DatabaseTools.ConsoleTest", "Banlinea.Framework.DatabaseTools.ConsoleTest\Banlinea.Framework.DatabaseTools.ConsoleTest.csproj", "{99EA93A8-C5BB-400D-99FD-CE89934B4C41}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45917DBB-0E76-4665-8574-78A777A2FD77}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget.config = Nuget.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
