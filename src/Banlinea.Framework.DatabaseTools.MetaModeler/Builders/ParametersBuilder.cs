@@ -46,6 +46,24 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Builders
             return parameterMap;
         }
 
+        public static async Task<dynamic> BuildSelectParametersAsync(IDbConnection connection, object values, string tableName, string tableSchema = "dbo")
+        {
+            if (values == null) return null;
+
+            var columns =
+                (await
+                        MetadataExtractorHelper.GetTableColumnsAsync(connection, tableName, tableSchema).ConfigureAwait(false)).Select(c => c.ColumnName);
+            var columnsInFilter = Dynamic.GetMemberNames(values);
+            var intersectedFields = columns.Intersect(columnsInFilter);
+            var parameterMap = new ExpandoObject();
+            foreach (var column in intersectedFields)
+            {
+                var value = Dynamic.InvokeGet(values, column);
+                if (value != null) Dynamic.InvokeSet(parameterMap, column.TrimAll(), value);
+            }
+            return parameterMap;
+        }
+
         public static async Task<object> BuildUpdateParametersAsync(IDbConnection connection, object values, string tableName, string tableSchema = "dbo")
         {
             var columnDefinitions = (await MetadataExtractorHelper.GetTableColumnsAsync(connection, tableName, tableSchema).ConfigureAwait(false)).ToList();
@@ -62,7 +80,6 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Builders
             }
             return parameterMap;
         }
-
 
         private static void ValidateRequiredFields(IEnumerable<ColumnDefinition> columnDefinitions, object values)
         {

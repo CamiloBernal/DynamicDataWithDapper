@@ -1,5 +1,4 @@
-﻿using System;
-using Dapper;
+﻿using Dapper;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -42,14 +41,18 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Helpers
             var buildParametersTask = Builders.ParametersBuilder.BuildDeleteParametersAsync(connection, values, tableName, tableSchema);
             await Task.WhenAll(buildCommandTask, buildParametersTask).ConfigureAwait(false);
             var command = await buildCommandTask.ConfigureAwait(false);
-            var parameters = await buildParametersTask;
+            var parameters = await buildParametersTask.ConfigureAwait(false);
             await connection.ExecuteAsync(command, (object)parameters).ConfigureAwait(false);
         }
 
         public static async Task<dynamic> SelectAsync(IDbConnection connection, string tableName, string tableSchema = "dbo", dynamic filter = null)
         {
-            var tableDefinition = filter == null ? null : await MetadataExtractorHelper.GetTableDefinitionAsync(connection, tableName, tableSchema).ConfigureAwait(false);
-            throw new NotImplementedException();
+            var buildCommandTask = Builders.CommandBuilder.GetSelectCommandAsync(connection, tableName, tableSchema, filter);
+            var buildParametersTask = Builders.ParametersBuilder.BuildSelectParametersAsync(connection, filter, tableName, tableSchema);
+            await Task.WhenAll(buildCommandTask, buildParametersTask);
+            var command = await buildCommandTask.ConfigureAwait(false);
+            var parameters = await buildParametersTask.ConfigureAwait(false);
+            return await connection.QueryAsync<dynamic>((string)command, (object)parameters).ConfigureAwait(false);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Dynamitey;
 
 
 namespace Banlinea.Framework.DatabaseTools.ConsoleTest
@@ -32,37 +33,51 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
             //    }
             //}
 
-            //using (var connection = new SqlConnection(connectionString))
-            //{
-            //    //Create connection factory
-            //    try
-            //    {
-            //        if (connection.State == ConnectionState.Closed)
-            //        {
-            //            Task.WaitAll(connection.OpenAsync());
-            //        }
 
-            //        var data = new { Id = 6, Name = "Angel", Description = "Bernal aaaaab3" };
-            //        //var result = CrudHelper.InsertAsync(connection,data, "Usuarios", "Test").Result;
-            //        //var updateTask = CrudHelper.UpdateAsync(connection, data, "Usuarios", "Test");
-            //        //Task.WaitAll(updateTask);
+            using (var connection = new SqlConnection(connectionString))
+            {
+                //Create connection factory
+                try
+                {
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        Task.WaitAll(connection.OpenAsync());
+                    }
 
-            //        var deleteTask = CrudHelper.DeleteAsync(connection, data, "Usuarios", "Test");
-            //        Task.WaitAll(deleteTask);
+                    var data = new { Id = 6};
+                    //var result = CrudHelper.InsertAsync(connection,data, "Usuarios", "Test").Result;
+                    //var updateTask = CrudHelper.UpdateAsync(connection, data, "Usuarios", "Test");
+                    //Task.WaitAll(updateTask);
 
-            //        Console.WriteLine($"Delete ok!!!");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.ForegroundColor = ConsoleColor.Red;
-            //        Console.WriteLine(ex.ToLogString());
-            //        Console.ForegroundColor = ConsoleColor.Black;
-            //    }
-            //    finally
-            //    {
-            //        if (connection.State != ConnectionState.Closed) connection.Close();
-            //    }
-            //}
+                    //var deleteTask = CrudHelper.DeleteAsync(connection, data, "Usuarios", "Test");
+                    //Task.WaitAll(deleteTask);
+
+                    var result =(IEnumerable<dynamic>) CrudHelper.SelectAsync(connection, "Company", "Process",data).Result;
+
+                    foreach (var r in result)
+                    {
+                        var fields = Dynamic.GetMemberNames(r);
+
+                        foreach (var f in fields)
+                        {
+                            var value = Dynamic.InvokeGet(r, f);
+                            Console.Write($"{f} : {value}");
+                        }
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine($"Delete ok!!!");
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.ToLogString());
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed) connection.Close();
+                }
+            }
 
             //var columnList = columns as IList<ColumnDefinition> ?? columns.ToList();
             //if (columnList.Any())
@@ -95,7 +110,7 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
             //var value = Dynamic.InvokeGet(my, "Test");
             //Console.WriteLine(value);
 
-          
+
 
 
             Console.Read();
