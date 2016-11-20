@@ -1,5 +1,6 @@
 ﻿using Banlinea.Framework.DatabaseTools.MetaModeler.Extensions;
 using Banlinea.Framework.DatabaseTools.MetaModeler.Helpers;
+using Dynamitey;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,8 +12,6 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Builders
 {
     public static class CommandBuilder
     {
-      
-
         public static async Task<string> GetDeleteCommandAsync(TableDefinition tableDefinition, IDbConnection connection)
         {
             if (tableDefinition == null) throw new ArgumentNullException(nameof(tableDefinition));
@@ -63,9 +62,15 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Builders
             return commandSb.ToString();
         }
 
-        public static Task<string> GetSelectCommandAsync(TableDefinition tableDefinition, IDbConnection connection)
+        public static async Task<string> GetSelectCommandAsync(IDbConnection connection, string tableName, string tableSchema = "dbo", dynamic filter = null)
         {
-            throw new NotImplementedException();
+            var selectCommand = new StringBuilder($@" Select * from [{tableSchema}].[{tableName}] ");
+            var where = await GetWhereByFieldsAsync(connection, tableName, tableSchema, filter).ConfigureAwait(false);
+            if (!string.IsNullOrEmpty(where))
+            {
+                selectCommand.AppendLine(where);
+            }
+            return selectCommand.ToString();
         }
 
         public static async Task<string> GetUpdateCommandAsync(TableDefinition tableDefinition, IDbConnection connection)
@@ -95,6 +100,26 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Builders
 
             commandSb.AppendLine(where);
             return commandSb.ToString();
+        }
+
+        private static async Task<string> GetWhereByFieldsAsync(IDbConnection connection, string tableName, string tableSchema = "dbo", dynamic filter = null)
+        {
+            if (filter == null) return string.Empty;
+            var tableColumns = await MetadataExtractorHelper.GetTableColumnsAsync(connection, tableName, tableSchema).ConfigureAwait(false);
+
+            var columnNames = tableColumns.Select(c => c.ColumnName);
+            var filterMembers = (IEnumerable<string>)Dynamic.GetMemberNames(filter);
+            var fieldsForWhere = columnNames.Intersect(filterMembers).ToList();
+            if (!fieldsForWhere.Any()) return string.Empty;
+            var whereSb = new StringBuilder(" where ");
+            var index = 1;
+            foreach (var field in fieldsForWhere)
+            {
+                whereSb.AppendLine($@" [{field}] = @{field} ");
+                if (index < fieldsForWhere.Count) whereSb.Append(" AND ");
+                index++;
+            }
+            return whereSb.ToString();
         }
 
         private static async Task<string> GetWhereByFieldsAsync(ICollection<ColumnDefinition> columnDefinitions, IDbConnection connection, string tableName, string tableSchema = "dbo")

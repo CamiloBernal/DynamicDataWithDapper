@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -43,6 +44,12 @@ namespace Banlinea.Framework.DatabaseTools.MetaModeler.Helpers
             var command = await buildCommandTask.ConfigureAwait(false);
             var parameters = await buildParametersTask;
             await connection.ExecuteAsync(command, (object)parameters).ConfigureAwait(false);
+        }
+
+        public static async Task<dynamic> SelectAsync(IDbConnection connection, string tableName, string tableSchema = "dbo", dynamic filter = null)
+        {
+            var tableDefinition = filter == null ? null : await MetadataExtractorHelper.GetTableDefinitionAsync(connection, tableName, tableSchema).ConfigureAwait(false);
+            throw new NotImplementedException();
         }
     }
 }
