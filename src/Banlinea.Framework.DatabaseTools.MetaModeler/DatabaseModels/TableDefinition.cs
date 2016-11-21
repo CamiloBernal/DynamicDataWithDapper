@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Banlinea.Framework.DatabaseTools.MetaModeler
+namespace Banlinea.Framework.DatabaseTools.MetaModeler.DatabaseModels
 {
     public class TableDefinition
     {

@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\ParametersBuilder.cs" />
-    <Compile Include="ColumnDefinition.cs" />
+    <Compile Include="DatabaseModels\ColumnDefinition.cs" />
     <Compile Include="Builders\CommandBuilder.cs" />
     <Compile Include="Exceptions\MissingDataFieldException.cs" />
     <Compile Include="Extensions\ColumnDefinitionExtensions.cs" />
@@ -59,10 +59,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\CrudHelper.cs" />
     <Compile Include="Helpers\MetadataExtractorHelper.cs" />
-    <Compile Include="PredefinedCommands.cs" />
-    <Compile Include="PrimaryKey.cs" />
-    <Compile Include="SqlDataType.cs" />
-    <Compile Include="TableDefinition.cs" />
+    <Compile Include="Commands\PredefinedCommands.cs" />
+    <Compile Include="DatabaseModels\PrimaryKey.cs" />
+    <Compile Include="DatabaseModels\SqlDataType.cs" />
+    <Compile Include="DatabaseModels\TableDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

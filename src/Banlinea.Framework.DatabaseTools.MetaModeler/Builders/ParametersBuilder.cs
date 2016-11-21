@@ -1,4 +1,5 @@
-﻿using Banlinea.Framework.DatabaseTools.MetaModeler.Exceptions;
+﻿using Banlinea.Framework.DatabaseTools.MetaModeler.DatabaseModels;
+using Banlinea.Framework.DatabaseTools.MetaModeler.Exceptions;
 using Banlinea.Framework.DatabaseTools.MetaModeler.Extensions;
 using Banlinea.Framework.DatabaseTools.MetaModeler.Helpers;
 using Dynamitey;

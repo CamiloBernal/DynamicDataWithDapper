@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Banlinea.Framework.DatabaseTools.MetaModeler
+namespace Banlinea.Framework.DatabaseTools.MetaModeler.Commands
 {
     public static class PredefinedCommands
     {

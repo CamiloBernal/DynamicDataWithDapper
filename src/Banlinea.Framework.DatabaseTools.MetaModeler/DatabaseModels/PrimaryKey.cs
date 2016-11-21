@@ -1,4 +1,4 @@
-﻿namespace Banlinea.Framework.DatabaseTools.MetaModeler
+﻿namespace Banlinea.Framework.DatabaseTools.MetaModeler.DatabaseModels
 {
     public sealed class PrimaryKey
     {

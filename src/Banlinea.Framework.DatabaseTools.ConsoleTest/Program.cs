@@ -1,14 +1,11 @@
 ﻿using Banlinea.Framework.DatabaseTools.MetaModeler.Extensions;
 using Banlinea.Framework.DatabaseTools.MetaModeler.Helpers;
+using Dynamitey;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Dynamitey;
-
 
 namespace Banlinea.Framework.DatabaseTools.ConsoleTest
 {
@@ -33,7 +30,6 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
             //    }
             //}
 
-
             using (var connection = new SqlConnection(connectionString))
             {
                 //Create connection factory
@@ -44,7 +40,7 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
                         Task.WaitAll(connection.OpenAsync());
                     }
 
-                    var data = new { Id = 6};
+                    var data = new { Id = 6 };
                     //var result = CrudHelper.InsertAsync(connection,data, "Usuarios", "Test").Result;
                     //var updateTask = CrudHelper.UpdateAsync(connection, data, "Usuarios", "Test");
                     //Task.WaitAll(updateTask);
@@ -52,7 +48,7 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
                     //var deleteTask = CrudHelper.DeleteAsync(connection, data, "Usuarios", "Test");
                     //Task.WaitAll(deleteTask);
 
-                    var result =(IEnumerable<dynamic>) CrudHelper.SelectAsync(connection, "Company", "Process",data).Result;
+                    var result = (IEnumerable<dynamic>)CrudHelper.SelectAsync(connection, "Company", "Process", data).Result;
 
                     foreach (var r in result)
                     {
@@ -65,7 +61,7 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
                         }
                         Console.WriteLine();
                     }
-                    Console.WriteLine($"Delete ok!!!");
+                    Console.WriteLine("Delete ok!!!");
                 }
                 catch (Exception ex)
                 {
@@ -109,9 +105,6 @@ namespace Banlinea.Framework.DatabaseTools.ConsoleTest
             //Dynamic.InvokeSet(my, "Test", "algo");
             //var value = Dynamic.InvokeGet(my, "Test");
             //Console.WriteLine(value);
-
-
-
 
             Console.Read();
         }

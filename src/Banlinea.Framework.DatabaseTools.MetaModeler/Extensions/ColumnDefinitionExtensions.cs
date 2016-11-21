@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Banlinea.Framework.DatabaseTools.MetaModeler.DatabaseModels;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Banlinea.Framework.DatabaseTools.MetaModeler.Extensions
